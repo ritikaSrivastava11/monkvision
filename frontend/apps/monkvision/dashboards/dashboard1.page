@@ -1,46 +1,193 @@
 SCHEMA
 ======
 {
-    "alerts": {"html":"chart-box", "id":"alerts", "title":"{{i18n.CriticalAlerts}}", "api":"alerts", "type":"text",
-        "styleBody":"div#container{height: calc(100vh - 105px) !important;} div#content > div#textcontent > span#text > p:hover {background-color: rgb(235, 250, 245);}"},
 
-    "banner": {"html":"chart-box", "id":"httpBanner", "title": "Will be overridden", "api":"statusbanner", 
-        "type":"metrictext", 
-        "params":"id=html_mon_https___www_google_com_search_q_tekmonks&percent100Colors=#ffffff,#45d19e&elseColors=#ffffff,#ff3f3fcc&elseIcon=./img/server_icon.svg&percent100Explanation=No issues seen&elseExplanation=There are issues&elseTitle=Success Rate"},
+    "monbossAlerts": {
+        "html":"chart-box", 
+        "id":"alerts", 
+        "title":"{{i18n.CriticalAlerts}}", 
+        "api":"alerts", 
+        "type":"text",
+        "styleBody":"div#container{height: calc(100vh - 105px) !important;} div#content > div#textcontent > span#text > p:hover {background-color: rgb(235, 250, 245);}"
+    },
 
-    "httpPie": {"html":"chart-box", "id":"httpPie", "title":"{{i18n.httpGooglePie}}", "api":"statusaggregator", "type":"piegraph", 
-        "labels":"1:{{i18n.OK}},0:{{i18n.Issue}}", "labelsShowPercentage": "true",
-        "colors":"0:#D43F3F4C:#af3234,1:#40D59D4C:#0e8f7e", "labelColor":"rgba(72,72,72,0.98)",
+    "total_active_nodes": {
+        "html": "chart-box",
+        "id": "httpBanner",
+        "title": "Total active nodes",
+        "api": "statusbanner_activeNodes",
+        "type": "metrictext",
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_memsql_portcheck_dashboard_sh__primary_&percent_total_nodes_Colors=#ffffff,#45d19e&elseColors=#ffffff,#ff3f3fcc&elseIcon=./img/server_icon.svg&percent_total_nodes_Explanation=All nodes Online&elseExplanation=One or more nodes down&elseTitle=Total Nodes Online"
+    },
+
+    "summaryBanner1": {
+        "html": "chart-box",
+        "id": "httpBanner",
+        "title": "Total active nodes",
+        "api": "statusbanner_activeNodes",
+        "type": "metrictext",
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_memsql_portcheck_dashboard_sh__primary_&percent_total_nodes_Colors=#ffffff,#45d19e&elseColors=#ffffff,#ff3f3fcc&elseIcon=./img/server_icon.svg&percent_total_nodes_Explanation=All nodes Online&elseExplanation=One or more nodes down&elseTitle=Total Nodes Online"
+    },
+
+    "summaryBanner2": {
+        "html": "chart-box",
+        "id": "httpBanner",
+        "title": "Total active nodes",
+        "api": "statusbanner_activeNodes",
+        "type": "metrictext",
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_memsql_portcheck_dashboard_sh__primary_&percent_total_nodes_Colors=#ffffff,#45d19e&elseColors=#ffffff,#ff3f3fcc&elseIcon=./img/server_icon.svg&percent_total_nodes_Explanation=All nodes Online&elseExplanation=One or more nodes down&elseTitle=Total Nodes Online"
+    },
+
+    "nodes_online_pie": {
+        "html": "chart-box",
+        "id": "httpPie",
+        "title": "{{i18n.errorPercentageInCluster}}",
+        "api": "statusaggregator_alerts",
+        "type": "piegraph",
+        "labels": "1:{{i18n.OK}},0:{{i18n.Issue}}",
+        "labelsShowPercentage": "true",
+        "colors": "0:#D43F3F4C:#af3234,1:#40D59D4C:#0e8f7e",
+        "labelColor": "rgba(72,72,72,0.98)",
         "styleBody": "div#content{overflow-y: hidden}",
-        "params":"id=html_mon_https___www_google_com_search_q_tekmonks"},
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_memsql_portcheck_sh__primary_"
+    },
 
-    "http": {"html":"chart-box", "id":"password", "api":"loggraph", "type":"table", 
-        "labels":"x:{{i18n.time}},ys0:{{i18n.status}}", 
-        "params":"id=html_mon_https___www_google_com_search_q_tekmonks&statusAsBoolean=true&nullValue={{i18n.none}}&title={{i18n.httpGoogle}}", 
-        "styleBody":"div#content{max-height: calc(33vh - 64px) !important;} thead, th{box-shadow: 0 2px 2px -1px rgb(69, 209, 158, 0.4); background-color: #45d19e; color: rgb(250,250,250);} tr:nth-child(even) {background: rgb(235, 250, 245)}"},
-
-    "httpBar": {"html":"chart-box", "id":"httpBar", "title":"{{i18n.httpGoogleBar}}", "api":"loggraph", "type":"bargraph", 
-        "maxticks":5, "ysteps":"[0.10]", "ylabels":"[1:{{i18n.OK}},0:{{i18n.Issue}},else:]", 
-        "ycolors":"[0.1:#D43F3F4C:#af3234,else:#40D59D4C:#0e8f7e]", "yAtZeros":"[true]", "gridLines":"true",
-        "labelColor":"rgba(72,72,72,0.98)", "gridColor": "rgba(120,120,120,0.20)",
+    "cpu_usage": {
+        "html": "chart-box",
+        "id": "httpBar",
+        "title": "{{i18n.clusterCpuUsage}}",
+        "api": "loggraphCpuUsage",
+        "type": "linegraph",
+        "maxticks": 3,
+        "ysteps": "[1],[1]",
+        "ylabels": "[],[],[],[]",
+        "ymaxs": "[100],[100],[100],[100]",
+        "singleAxis": true,
+        "yAtZeros": "[true],[true],[true],[true]",
+        "fillColors": "[#40D59D4C],[#D43F3F4C],[#ffff00],[#66ccff]",
+        "borderColors": "[#0e8f7e],[#af3234],[#ffff99],[#0000ff]",
+        "gridLines": "true",
+        "labelColor": "rgba(72,72,72,0.98)",
+        "gridColor": "rgba(120,120,120,0.20)",
         "styleBody": "div#content{overflow-y: hidden}",
-        "params":"id=html_mon_https___www_google_com_search_q_tekmonks&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}"}
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_cpu_stat_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}"
+    },
+    "table": {
+        "html":"chart-box", 
+        "id":"password", 
+        "api":"sqlPerfTable", 
+        "type":"table", 
+        "labels":"x:{{i18n.time}},ys0:{{i18n.status}},ys1:CPU Usage,ys2:Disk Usage,ys3:RAM Usage", 
+        "params":"id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_disk_util_dashboard_sh__primary_&statusAsBoolean=true&nullValue={{i18n.none}}&title={{i18n.table}}", 
+        "styleBody":"div#content{max-height: calc(33vh - 64px) !important;} thead, th{box-shadow: 0 2px 2px -1px rgb(69, 209, 158, 0.4); background-color: #45d19e; color: rgb(250,250,250);} tr:nth-child(even) {background: rgb(235, 250, 245)}"
+    },
+    "disk_usage": {
+        "html": "chart-box",
+        "id": "httpBar",
+        "title": "{{i18n.clusterDiskUtil}}",
+        "api": "loggraphDiskUtil",
+        "type": "linegraph",
+        "maxticks": 3,
+        "ysteps": "[1],[1]",
+        "ylabels": "[],[],[],[]",
+        "ymaxs": "[100],[100],[100],[100]",
+        "singleAxis": true,
+        "yAtZeros": "[true],[true],[true],[true]",
+        "fillColors": "[#40D59D4C],[#D43F3F4C],[#ffff00],[#66ccff]",
+        "borderColors": "[#0e8f7e],[#af3234],[#ffff99],[#0000ff]",
+        "gridLines": "true",
+        "labelColor": "rgba(72,72,72,0.98)",
+        "gridColor": "rgba(120,120,120,0.20)",
+        "styleBody": "div#content{overflow-y: hidden}",
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_disk_util_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}"
+    },
+    "disk_usage1": {
+        "html": "chart-box",
+        "id": "httpBar",
+        "title": "{{i18n.clusterDiskUtil}}",
+        "api": "lineGraphSummary",
+        "type": "linegraph",
+        "maxticks": 3,
+        "ysteps": "[1],[1]",
+        "ylabels": "[],[],[],[]",
+        "ymaxs": "[100],[100],[100],[100]",
+        "singleAxis": true,
+        "yAtZeros": "[true],[true],[true],[true]",
+        "fillColors": "[#40D59D4C],[#D43F3F4C],[#ffff00],[#66ccff]",
+        "borderColors": "[#0e8f7e],[#af3234],[#ffff99],[#0000ff]",
+        "gridLines": "true",
+        "labelColor": "rgba(72,72,72,0.98)",
+        "gridColor": "rgba(120,120,120,0.20)",
+        "styleBody": "div#content{overflow-y: hidden}",
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_cpu_stat_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}"
+    },
+    "disk_usage2": {
+        "html": "chart-box",
+        "id": "httpBar",
+        "title": "{{i18n.clusterDiskUtil}}",
+        "api": "lineGraphSummary",
+        "type": "linegraph",
+        "maxticks": 3,
+        "ysteps": "[1],[1]",
+        "ylabels": "[],[],[],[]",
+        "ymaxs": "[100],[100],[100],[100]",
+        "singleAxis": true,
+        "yAtZeros": "[true],[true],[true],[true]",
+        "fillColors": "[#40D59D4C],[#D43F3F4C],[#ffff00],[#66ccff]",
+        "borderColors": "[#0e8f7e],[#af3234],[#ffff99],[#0000ff]",
+        "gridLines": "true",
+        "labelColor": "rgba(72,72,72,0.98)",
+        "gridColor": "rgba(120,120,120,0.20)",
+        "styleBody": "div#content{overflow-y: hidden}",
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_cpu_stat_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}"
+    },
+    "disk_usage3": {
+        "html": "chart-box",
+        "id": "httpBar",
+        "title": "{{i18n.clusterDiskUtil}}",
+        "api": "lineGraphSummary",
+        "type": "linegraph",
+        "maxticks": 3,
+        "ysteps": "[1],[1]",
+        "ylabels": "[],[],[],[]",
+        "ymaxs": "[100],[100],[100],[100]",
+        "singleAxis": true,
+        "yAtZeros": "[true],[true],[true],[true]",
+        "fillColors": "[#40D59D4C],[#D43F3F4C],[#ffff00],[#66ccff]",
+        "borderColors": "[#0e8f7e],[#af3234],[#ffff99],[#0000ff]",
+        "gridLines": "true",
+        "labelColor": "rgba(72,72,72,0.98)",
+        "gridColor": "rgba(120,120,120,0.20)",
+        "styleBody": "div#content{overflow-y: hidden}",
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_cpu_stat_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}"
+    }
+
 }
 ======
 
 
 LAYOUT
 =================
-------------------------------------
-| alerts      | banner | httpPie   |
-|-------------|--------------------|
-| alerts      |     http           |
-|-------------|--------------------|
-| alerts      |   httpBar          |
-------------------------------------
+---------------------------------------------------------
+| monbossAlerts | total_active_nodes | nodes_online_pie |
+|-------------------------------------------------------|
+| monbossAlerts |     cpu_usage                         |
+|-------------------------------------------------------|
+| monbossAlerts |       disk_usage                      |
+|-------------------------------------------------------|
+|summaryBanner2 | summaryBanner1     |
+|-------------------------------------------------------|
+|                   table                               |
+|-------------------------------------------------------|
+|                   disk_usage1                         |
+|-------------------------------------------------------|
+|                   disk_usage2                         |
+|-------------------------------------------------------|
+|                   disk_usage3                         |
+---------------------------------------------------------
 =================
-Row Heights = 33.33%,33.33%,33.33%
-Col Widths = 35%,20%,45%
+Row Heights = 31%,28%,28%,33.33%,33.33%,33.33%,33.33%,33.33%
+Col Widths = 33.33%,33.33%,33.33%
 =================
 
 

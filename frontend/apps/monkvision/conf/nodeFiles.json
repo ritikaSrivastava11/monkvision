@@ -1,0 +1,4 @@
+{
+    "api1":"loggraphCpuUsage",
+    "api2":"loggraphDiskUtil"
+}

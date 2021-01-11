@@ -4,9 +4,28 @@
  * (C) 2020 TekMonks. All rights reserved.
  * License: See enclosed license.txt file.
  */
+
+ /*
+  ************ CHANGE HISTORY STARTS: By Ritika ********
+ ---- Feature : to add dropdown to show node specific data ----
+- added global variables
+- added showNodeList() 
+- added getSelectedNode()
+- commented if , elseif , else sequence where force, memory.contents and content.contents values were checked
+- for linegraph type ,added  ys1 and infos1 to store node specific values
+- exported getSelectedNode() to make it available to be called from main.html on onchange attribute of dropdown
+*************** CHANGE HISTORY ENDS: By Ritika *********
+*/
+
 import {chart} from "./lib/chart.mjs";
 import {apimanager as apiman} from "/framework/js/apimanager.mjs";
 import {monkshu_component} from "/framework/js/monkshu_component.mjs";
+
+/*Ritika code start : to define global variable selectednode(to store the node selected from dropdown)
+and flag(to make sure dropdown is populated only once, as there are 2 node specific graphs)*/
+let selectedNode=0;
+let flag=true;
+//Ritika code ends
 
 async function elementRendered(element) {
 	await $$.require(`${APP_CONSTANTS.COMPONENTS_PATH}/chart-box/3p/xregexp-4.3.0-all-min.js`);	// load xregexp which is needed
@@ -38,6 +57,28 @@ function _escapeHTML(text) {
 	return p.innerHTML;
 }
 
+// Ritika code starts: function to populate node values to the dropdown
+function showNodeList(nodeList) {
+	let dropdown = document.getElementById("nodeDropdown"); 
+	for (var i = 0; i < nodeList.length; i++) { 
+		let node = nodeList[i]; 
+		let options = document.createElement("option"); 
+		options.textContent = node; 
+		options.value = i; 
+		dropdown.appendChild(options); 
+	} 
+}
+// Ritika code ends: function to populate node values to the dropdown
+
+//Ritika code starts : function to store the selected node from dropdown in global variable selectedNode
+//this function is called from main.html on onchange attribute of dropdown
+function getSelectedNode(node) {
+	selectedNode=node;
+	for (const element of chart_box.getAllElementInstances()) _refreshData(element);
+
+}
+//Ritika code ends : function to store the selected node from dropdown
+
 const _isNullOrUndefined = object => object == null || object == undefined;
 
 async function _refreshData(element, force) {
@@ -53,16 +94,20 @@ async function _refreshData(element, force) {
 		styleBody: element.getAttribute("styleBody")?`<style>${element.getAttribute("styleBody")}</style>`:null}};
 	const clone = object => object?JSON.parse(JSON.stringify(object)):null;
 
-	if (!force && content && !content.contents) {	// clear everything if data is empty and changed
-		if (memory.contents) {await bindData(createData(), id); clearChart(); delete memory.contents;}	// destroy any table etc.
-		return;
-	} else if (!force && content && JSON.stringify(memory.contents) == JSON.stringify(content.contents)) return;	// return if data didn't change
-	else if (content) memory.contents = clone(content.contents); else delete memory.contents;	// we will now render new data
+	//Ritika commented start : because graphs were not updating on selecting value form dropdown.
+
+	// if (!force && content && !content.contents) {	// clear everything if data is empty and changed
+	// 	if (memory.contents) {await bindData(createData(), id); clearChart(); delete memory.contents;}	// destroy any table etc.
+	// 	return;
+	// } else if (!force && content && JSON.stringify(memory.contents) == JSON.stringify(content.contents)) return;	// return if data didn't change
+	// else if (content) memory.contents = clone(content.contents); else delete memory.contents;	// we will now render new data
+	
+	//Ritika commented ends 
 
 	const data = createData(); if (content && content.contents) delete content.contents.title;	// title, if it exists, is only for rendering
 
 	const shadowRoot = chart_box.getShadowRootByHostId(id), contentDiv = shadowRoot.querySelector("div#content"); 
-	
+
 	if (type == "text") {
 		contentDiv.innerHTML = "";	// clear it so scrollHeight below is always accurate
 		data.textcontent = content?content.contents||"":"";
@@ -108,8 +153,8 @@ async function _refreshData(element, force) {
 	clearChart(shadowRoot);	// destroy the old chart if it exists as we will now refresh charts.
 
 	if (type == "bargraph" || type == "linegraph") {
-		await bindData(data, id); if (!content || !content.contents) return;
 
+		await bindData(data, id); if (!content || !content.contents) return;
 		const labels = _getLabels(_makeArray(element.getAttribute("ylabels")));
 		const labelColor = element.getAttribute("labelColor") || "black";
 		const gridColor = element.getAttribute("gridColor") || "darkgrey";
@@ -131,13 +176,31 @@ async function _refreshData(element, force) {
 				(element.getAttribute("singleAxis") && element.getAttribute("singleAxis").toLowerCase() == "true"));
 		}
 
-		if (type == "linegraph") memory.chart = await chart.drawLinegraph(contentDiv.querySelector("canvas#canvas"), 
+		if (type == "linegraph") {
+			//Ritika code starts : to fetch nodelist from api data and pass it to showNodeList() to populate dropdown
+			if(content.nodeList && flag){
+				const nodeList =content.nodeList;
+				showNodeList(nodeList);
+				 flag=false; // so that dropdown is populated only once
+			}
+
+			// adding ys1 and infos1 to store node specific values
+			if(content.nodeList){
+				content.contents.ys1=[content.contents.ys[selectedNode]];
+				content.contents.infos1=[content.contents.infos[selectedNode]];
+			}else{ // for summary graphs we need not add ys1 and infos1, because here data will not be node specific
+				content.contents.ys1=content.contents.ys;               
+				content.contents.infos1=content.contents.infos;
+			}
+			//Ritika code ends : to fetch nodelist from api data and pass it to showNodeList() to populate dropdown
+			
+			memory.chart = await chart.drawLinegraph(contentDiv.querySelector("canvas#canvas"), 
 			content.contents, element.getAttribute("maxticks"), _isTrue(element.getAttribute("gridLines")), 
 			element.getAttribute("xAtZero"), _makeArray(element.getAttribute("yAtZeros")), 
 			_makeArray(element.getAttribute("ysteps")), labels, _makeArray(element.getAttribute("ymaxs")), 
 			_makeArray(element.getAttribute("fillColors")),_makeArray(element.getAttribute("borderColors")), 
 			labelColor, gridColor, (element.getAttribute("singleAxis") && element.getAttribute("singleAxis").toLowerCase() == "true"));
-		
+		}
 		return;
 	}
 
@@ -208,6 +271,6 @@ async function _getContent(api, params) {
 }
 
 const _isTrue = string => string?string.toLowerCase() == "true":false;
-
-export const chart_box = {trueWebComponentMode: true, elementRendered, setTimeRange, getTimeRange}
+//Ritika added : exported getSelectedNode() 
+export const chart_box = {trueWebComponentMode: true, elementRendered, setTimeRange, getTimeRange,getSelectedNode}
 monkshu_component.register("chart-box", `${APP_CONSTANTS.APP_PATH}/components/chart-box/chart-box.html`, chart_box);

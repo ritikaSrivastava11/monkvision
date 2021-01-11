@@ -4,12 +4,22 @@
     "/apps/monkvision/changepassword" : "/apis/changepassword.js?key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
     
     "/apps/monkvision/alerts" : "/apis/alerts.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
+    "/apps/monkvision/monbossAlerts" : "/apis/monbossAlerts.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
     
     "/apps/monkvision/loggraph" : "/apis/loggraph.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
+    "/apps/monkvision/loggraphCpuUsage" : "/apis/loggraphCpuUsage.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
+
+    "/apps/monkvision/sqlPerfTable" : "/apis/sqlPerfTable.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
+
+    "/apps/monkvision/loggraphDiskUtil" : "/apis/loggraphDiskUtil.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
+
+    "/apps/monkvision/lineGraphSummary" : "/apis/lineGraphSummary.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
 
     "/apps/monkvision/statusaggregator" : "/apis/statusaggregator.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
+    "/apps/monkvision/statusaggregator_alerts" : "/apis/statusaggregator_alerts.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
 
     "/apps/monkvision/statusbanner" : "/apis/statusbanner.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
+    "/apps/monkvision/statusbanner_activeNodes" : "/apis/statusbanner_activeNodes.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
 
     "/apps/monkvision/randomgraph" : "/apis/randomgraph.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
     "/apps/monkvision/randomaggregator" : "/apis/randomaggregator.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",

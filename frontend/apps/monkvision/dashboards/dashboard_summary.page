@@ -2,35 +2,53 @@ SCHEMA
 ======
 {
     "alerts": {"html":"chart-box", "id":"alerts", "title":"{{i18n.CriticalAlerts}}", "api":"alerts", "type":"text",
-        "styleBody":"div#container{height: calc(100vh - 105px) !important;} div#content > div#textcontent > span#text > p:hover {background-color: rgb(80, 80, 80);}"},
+        "styleBody":"div#container{height: calc(100vh - 105px) !important;} div#content > div#textcontent > span#text > p:hover {background-color: rgb(235, 250, 245);}"},
 
-    "clientBanner": {"html":"chart-box", "id":"clientBanner", "title": "Issue Summary", 
-        "api":"statusbannerquery", "type":"metrictext", 
-        "params":"id=clientAvailsBanner&percent100Colors=#ffffff,#45d19e&elseColors=#ffffff,#ff3f3fcc&elseIcon=./img/server_icon.svg&percent100Explanation=No issues seen&elseExplanation=There are issues&elseTitle=Success Rate"},
+    "clientBanner1": {"html":"chart-box", "id":"httpBanner", "title": "Issue Summary", 
+        "api":"statusbanner_activeNodes", "type":"metrictext", 
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_memsql_portcheck_dashboard_sh__primary_&percent_total_nodes_Colors=#ffffff,#45d19e&elseColors=#ffffff,#ff3f3fcc&elseIcon=./img/server_icon.svg&percent_total_nodes_Explanation=All nodes Online&elseExplanation=One or more nodes down&elseTitle=Total Nodes Online"},
 
-    "clientPie": {"html":"chart-box", "id":"httpPie", "title":"Success vs Failures", "api":"statusaggregatorquery", 
-        "type":"piegraph", "labels":"y1:{{i18n.OK}},y0:{{i18n.Issue}}", "labelsShowPercentage": "true",
-        "colors":"y0:#D43F3F4C:#af3234,y1:#40D59D4C:#0e8f7e", "labelColor":"rgba(250,250,250,0.95)",
-        "styleBody": "div#content{overflow-y: hidden}", "params":"id=clientAvailsPie&$qp_none={{i18n.none}}&info_suffix=_info"},
+    "clientBanner2": {"html":"chart-box", "id":"httpBanner", "title": "Issue Summary", 
+        "api":"statusbanner_activeNodes", "type":"metrictext", 
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_memsql_portcheck_dashboard_sh__primary_&percent_total_nodes_Colors=#ffffff,#45d19e&elseColors=#ffffff,#ff3f3fcc&elseIcon=./img/server_icon.svg&percent_total_nodes_Explanation=All nodes Online&elseExplanation=One or more nodes down&elseTitle=Total Nodes Online"},
 
-    "clientBar": {"html":"chart-box", "id":"clientBar", "title":"Overall Status", "api":"loggraphquery", 
-        "type":"bargraph", "maxticks":5, "ysteps":"[10]", "ylabels":"[100:{{i18n.OK}},0:{{i18n.Issue}},else:]", 
-        "ymaxs":"[100]", "ycolors":"[else:#D43F3F4C:#af3234,100:#40D59D4C:#0e8f7e]", "yAtZeros":"[true]", 
-        "gridLines":"true", "labelColor":"rgba(250,250,250,0.95)", "gridColor": "rgba(250,250,250,0.20)",
-        "styleBody": "div#content{overflow-y: hidden}", "params":"id=clientAvails&$qp_timeStep=12000&nullValue={{i18n.none}}&valueTemplate=Value: $$yvalue$$%\nBad Log IDs Follow\n$$value$$"}
+    "clientLine1": {"html": "chart-box","id": "httpBar","title": "{{i18n.clusterCpuUsage}}","api": "lineGraphSummary","type": "linegraph",
+        "maxticks": 3,"ysteps": "[1],[1]","ylabels": "[],[],[],[]","ymaxs": "[100],[100],[100],[100]",
+        "singleAxis": true,"yAtZeros": "[true],[true],[true],[true]","fillColors": "[#40D59D4C],[#D43F3F4C],[#ffff00],[#66ccff]",
+        "borderColors": "[#0e8f7e],[#af3234],[#ffff99],[#0000ff]","gridLines": "true",
+        "labelColor": "rgba(72,72,72,0.98)",
+        "gridColor": "rgba(120,120,120,0.20)","styleBody": "div#content{overflow-y: hidden}","params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_cpu_stat_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}"},
+
+    "clientLine2": {"html": "chart-box","id": "httpBar","title": "{{i18n.clusterCpuUsage}}","api": "lineGraphSummary","type": "linegraph",
+        "maxticks": 3,"ysteps": "[1],[1]","ylabels": "[],[],[],[]","ymaxs": "[100],[100],[100],[100]",
+        "singleAxis": true,"yAtZeros": "[true],[true],[true],[true]","fillColors": "[#40D59D4C],[#D43F3F4C],[#ffff00],[#66ccff]",
+        "borderColors": "[#0e8f7e],[#af3234],[#ffff99],[#0000ff]","gridLines": "true",
+        "labelColor": "rgba(72,72,72,0.98)",
+        "gridColor": "rgba(120,120,120,0.20)","styleBody": "div#content{overflow-y: hidden}","params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_cpu_stat_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}"},
+
+    "clientLine3": {"html": "chart-box","id": "httpBar","title": "{{i18n.clusterCpuUsage}}","api": "lineGraphSummary","type": "linegraph",
+        "maxticks": 3,"ysteps": "[1],[1]","ylabels": "[],[],[],[]","ymaxs": "[100],[100],[100],[100]",
+        "singleAxis": true,"yAtZeros": "[true],[true],[true],[true]","fillColors": "[#40D59D4C],[#D43F3F4C],[#ffff00],[#66ccff]",
+        "borderColors": "[#0e8f7e],[#af3234],[#ffff99],[#0000ff]","gridLines": "true",
+        "labelColor": "rgba(72,72,72,0.98)",
+        "gridColor": "rgba(120,120,120,0.20)","styleBody": "div#content{overflow-y: hidden}","params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_cpu_stat_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}"}
+
+    
 }
 ======
 
 
 LAYOUT
 =================
---------------------------------------------
-|   alerts    | clientBanner | clientPie   |
-|------------------------------------------|
-|   alerts    |           clientBar        |
---------------------------------------------
+-----------------------------------------------
+|   alerts    | clientBanner1 | clientBanner2 |
+|---------------------------------------------|
+|   alerts    |           clientLine1         |
+|---------------------------------------------|
+|   alerts    |           clientLine2         |
+-----------------------------------------------
 =================
-Row Heights = 50%,50%
+Row Heights = 33.3%,33.3%,33.3%
 Col Widths = 30%,35%,35%
 =================
 
@@ -50,8 +68,8 @@ body {margin: 0;}
     box-shadow:  0 0 1px rgba(34, 25, 25, 0.4);
     border-radius: 10px;
     margin: 5px;
-    background-color: rgb(30,30,30); 
-    color: rgba(250,250,250,0.95);
-    border: 0.1px solid rgba(250,250,250,0.95);
+    background-color: white;
+    color: rgb(72,72,72);
+    border: 0.1px solid rgba(250,250,250,0);
 }
 =======

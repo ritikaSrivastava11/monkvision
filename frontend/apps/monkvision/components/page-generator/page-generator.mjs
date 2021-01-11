@@ -104,7 +104,6 @@ async function generatePageHTML(elementParent, schema, cssParsed, cssInternal, c
 	css += "</style>"; html += "</div>";
 
 	let finalHTML = css+html;
-
 	return finalHTML;
 }
 

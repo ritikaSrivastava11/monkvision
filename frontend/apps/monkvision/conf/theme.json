@@ -7,7 +7,7 @@
         "div.lgbox > span": "font-weight: 600; font-size: small;",
         ".langbox": "top: max(560px, calc(100vh - 40px)); right: 40px; color: white;",
         "a:link": "color:black;",
-        ".advtextbox": "top: calc(50% - 20%); left: 10%; width: 400px; color: #0c0d0e;",
+        ".advtextbox": "top: 60%; left: 10%; width: 400px; color: #0c0d0e;",
         ".advtextbox > h1": "font-weight: 250; font-family: 'Raleway';",
         ".advtextbox > h2": "font-weight: 250; font-family: 'Raleway'; font-size: medium;",
         ".advtextbox > p": "font-weight: 400; font-family: 'Raleway'; font-size: smaller; background-color: #ffffff; color: black; border-radius: 10px; padding: 10px 5px 10px 5px; width: 120px; left: calc(50% - 60px); margin-top: 30px;",
@@ -42,7 +42,7 @@
         ".advtextbox > h1": "font-weight: 250; font-family: 'Raleway';",
         ".advtextbox > h2": "font-weight: 250; font-family: 'Raleway'; font-size: medium;",
         ".advtextbox > p": "font-weight: 400; font-family: 'Raleway'; font-size: smaller; background-color: #ffffff; color: black; border-radius: 10px; padding: 10px 5px 10px 5px; width: 120px; left: calc(50% - 60px); margin-top: 30px;",
-        "img.logo": "top: 20px; left: 30px; width: 148px; height: 57px;",
+        "img.logo": "top: 40px; left: 100px; width: 148px; height: 25px;",
         "span#signin": "top: 40px; right: 100px; position: absolute; font-size: 0.8em; font-weight: 500; color: #0c0d0e;",
         "span#signin > span:last-child": "color: #bd5c00; font-weight: 700; text-transform: uppercase;",
         "span#signin > span > a":"color: inherit;"
@@ -83,11 +83,15 @@
     "main_i18n": {
         "en": {
             "title": "Monkvision Dashboards",
-            "name_dash1": "Overview",
-            "title_dash1": "Overview of the systems",
-            "name_dash2": "Examples",
-            "title_dash2": "Example Charts",
-            "Issue": "Problem",
+            "name_dash1": "Primary",
+            "title_dash1": "Overview of the Primary cluster",
+            "name_dash2": "Summary",
+            "title_dash2": "Summary Charts",
+
+            "name_dash3": "ktymsqlitcrw",
+            "title_dash3": "Monitoring cluster production cluster Primary",
+
+            "Issue": "Issues",
             "Cancel": "Cancel",
             "InternalError": "Internal error",
             "CriticalAlerts": "Critical Alerts",
@@ -96,11 +100,31 @@
             "DDOSAttacks": "DDoS Attacks",
             "time": "Time",
             "status": "Status",
+
+            "database_name":"Database name",
+            "last_read_time":"Last read time",
+            "avg_cpu_time":"Average CPU time",
+            "avg_net_time":"Average net time",
+            "avg_elapsed_time":"Average elapsed time",
+            "query_text":"SQL query text",
             "additionalinfo": "Additional Information",
+            "errorPercentageInCluster": "Error percentage in Primary Cluster",
+            
             "none": "None",
             "httpGooglePie":"HTTP Google Pie",
             "httpGoogle": "HTTP Google",
-            "httpGoogleBar":"HTTP Google Bar"
+            "httpGoogleBar":"HTTP Google Bar",
+
+            "sqlQueryPerfTable": "SQL Query performance Table",
+            "barGraphCpuStat":"CPU Stat",
+            "clusterCpuUsage":"Cluster CPU Usage",
+            "clusterDiskUtil":"Disk Space Utilization",
+            "table":"Sql Performance Table",
+            "monbossLog": "Logs from Monboss",
+            "barGraphDiskUtil":"Disk Util",
+            "barGraphPageFault":"Page Fault",
+            "barGraphMemsql":"Memsql"
+            
         }
     },
     "main_html_data": {

@@ -56,31 +56,75 @@ async function drawLinegraph(canvas, contents, maxXTicks, gridLines, xAtZero, yA
 async function _drawLineOrBarGraph(canvas, contents, maxXTicks, gridLines, xAtZero, yAtZeros, ysteps, ylabels, ymaxs, bgColors, brColors, labelColor, gridColor, singleAxis, type, pointWidth, lineWidth) {
     await _init(); const ctx = canvas.getContext("2d"); 
 
-    const datasets = []; for (const [i,ys] of contents.ys.entries()) datasets.push({ data: ys, 
+    //Ritika modified : to change ys to ys1 to store the values of the node selected on dropdown by user
+    // const datasets = []; for (const [i,ys] of contents.ys.entries()) datasets.push({ data: ys, 
+    const datasets = []; for (const [i,ys1] of contents.ys1.entries()) datasets.push({ data: ys1, 
+
         backgroundColor: bgColors[i], borderColor: brColors[i], borderWidth: lineWidth, pointRadius: pointWidth,
         yAxisID: singleAxis?"yaxis0":`yaxis${i}` });
 
     const data = {labels: contents.x, datasets}
 
-    const yAxes = []; for (let i = 0; i < (singleAxis?1:contents.ys.length); i++) yAxes.push({ 
+    //Ritika modified : to change ys to ys1 to show node specific data on linegraphs
+    // const yAxes = []; for (let i = 0; i < (singleAxis?1:contents.ys.length); i++) yAxes.push({ 
+    const yAxes = []; for (let i = 0; i < (singleAxis?1:contents.ys1.length); i++) yAxes.push({ 
+
         gridLines: {drawOnChartArea: gridLines, drawTicks: false, color: gridColor}, id: `yaxis${i}`, type: 'linear', 
         ticks: {padding:5, stepSize:ysteps[i], beginAtZero: yAtZeros?yAtZeros[i].toLowerCase()=="true":false, 
             callback:label => ylabels[i][label] ? ylabels[i][label] : (ylabels[i]["else"]||ylabels[i]["else"]=="" ? ylabels[i]["else"]:label),
             fontColor: labelColor, suggestedMax: ymaxs&&ymaxs[i]?ymaxs[i]:null} });
 
     const options = {
+	//Ritika added: to handle hover tooltip issue
+	// events: [],
         maintainAspectRatio: false, 
         responsive: true, 
         legend: {display: false},
-        tooltips: {callbacks: {label: item => contents.infos[item.datasetIndex][item.index].split("\n")}, displayColors:false},
-        animation: {animateScale:true},
+        //Ritika modified : changed infos to infos1 to show node specific tooltip
+        // tooltips: {callbacks: {label: item => contents.infos1[item.datasetIndex][item.index]}, displayColors:false},        animation: {animateScale:true},
+        tooltips: {callbacks: {label: item => contents.infos1[item.datasetIndex][item.index]}, displayColors:false},        animation: {animateScale:true},
         scales: { xAxes: [{ gridLines: {drawOnChartArea: gridLines, drawTicks: false, color: gridColor}, 
                 ticks: {padding:5, beginAtZero: xAtZero?xAtZero.toLowerCase() == "true":false, autoSkip: true,
                 maxTicksLimit: maxXTicks, maxRotation: 0, fontColor: labelColor} }], yAxes }
     }
-
     return new Chart(ctx, {type, data, options});
 }
+
+// CHANGES DONE BY RITIKA BELOW:
+
+// async function _drawLineOrBarGraph(canvas, contents, maxXTicks, gridLines, xAtZero, yAtZeros, ysteps, ylabels, ymaxs, bgColors, brColors, labelColor, gridColor, singleAxis, type, pointWidth, lineWidth) {
+//     await _init(); const ctx = canvas.getContext("2d"); 
+
+//     const datasets = []; for (const [i,ys] of contents.ys.entries()) datasets.push({ data: ys, 
+//         backgroundColor: bgColors[i], borderColor: brColors[i], borderWidth: lineWidth, pointRadius: pointWidth,
+
+//         // barThickness: 6,
+//         // maintainAspectRatio:true,
+//         barPercentage: 0.8,
+//         categoryPercentage: 0.05,
+//         yAxisID: singleAxis?"yaxis0":`yaxis${i}` });
+
+//     const data = {labels: contents.x, datasets}
+
+//     const yAxes = []; for (let i = 0; i < (singleAxis?1:contents.ys.length); i++) yAxes.push({ 
+//         gridLines: {drawOnChartArea: gridLines, drawTicks: false, color: gridColor}, id: `yaxis${i}`, type: 'linear', 
+//         ticks: {padding:5, stepSize:ysteps[i], beginAtZero: yAtZeros?yAtZeros[i].toLowerCase()=="true":false, 
+//             callback:label => ylabels[i][label] ? ylabels[i][label] : (ylabels[i]["else"]||ylabels[i]["else"]=="" ? ylabels[i]["else"]:label),
+//             fontColor: labelColor, suggestedMax: ymaxs&&ymaxs[i]?ymaxs[i]:null} });
+
+//     const options = {
+//         maintainAspectRatio: false, 
+//         responsive: true, 
+//         legend: {display: false},
+//         tooltips: {callbacks: {label: item => contents.infos[item.datasetIndex][item.index].split("\n")}, displayColors:false},
+//         animation: {animateScale:true},
+//         scales: { xAxes: [{ gridLines: {drawOnChartArea: gridLines, drawTicks: false, color: gridColor}, 
+//                 ticks: {padding:5, beginAtZero: xAtZero?xAtZero.toLowerCase() == "true":false, autoSkip: true,
+//                 maxTicksLimit: maxXTicks, maxRotation: 0, fontColor: labelColor} }], yAxes }
+//     }
+
+//     return new Chart(ctx, {type, data, options});
+// }
 
 /**
  * Renders given data as a line graph. Makes the assumption that 
