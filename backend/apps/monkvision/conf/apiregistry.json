@@ -7,6 +7,10 @@
     "/apps/monkvision/monbossAlerts" : "/apis/monbossAlerts.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
     
     "/apps/monkvision/loggraph" : "/apis/loggraph.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
+    "/apps/monkvision/nodeListGenerator" : "/apis/nodeListGenerator.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
+
+    "/apps/monkvision/loggraphGeneric" : "/apis/loggraphGeneric.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
+   
     "/apps/monkvision/loggraphCpuUsage" : "/apis/loggraphCpuUsage.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",
 
     "/apps/monkvision/sqlPerfTable" : "/apis/sqlPerfTable.js?get=true&key=fheiwu98237hjief8923ydewjidw834284hwqdnejwr79389&needsToken=true",

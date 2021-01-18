@@ -26,9 +26,7 @@ exports.doService = async jsonReq => {
         return CONSTANTS.FALSE_RESULT;
     }
 
-    //Ritika code starts : for fetching node list to show in dropdown
-    const logid_nodelist="shell_mon__bin_bash_c__home_monboss_monboss_scripts_nodes_list_generator_dashboard_sh__primary_";
-    const rowsNodeList = await db.getLogs(logid_nodelist, utils.getTimeRangeForSQLite(JSON.parse(jsonReq.timeRange)));
+    const rowsNodeList = await db.getLogs(jsonReq.nodeList_logID, utils.getTimeRangeForSQLite(JSON.parse(jsonReq.timeRange)));
     let list=[];
     if (!rowsNodeList) {
         LOG.error("DB read issue for fetching node list");
@@ -41,7 +39,6 @@ exports.doService = async jsonReq => {
         }
         break;
     }
-    //Ritika code ends : for fetching node list to show in dropdown
 
     const rows = await db.getLogs(jsonReq.id, utils.getTimeRangeForSQLite(JSON.parse(jsonReq.timeRange)));
     if (!rows) {
@@ -53,7 +50,6 @@ exports.doService = async jsonReq => {
     // falseStatusValue = jsonReq.statusFalseValue ? jsonReq.statusFalseValue : 0.1,
     // trueStatusValue = jsonReq.statusTrueValue ? jsonReq.statusTrueValue : 1;
 
-// For dynamic number of ys and infos array
     for (let i = 0; i<list.length;i++){
         eval("var y"+i+"=[]");
         eval("var info"+i+"=[]");
@@ -66,25 +62,7 @@ exports.doService = async jsonReq => {
         let parsedAddStatus;
         try {
             parsedAddStatus = JSON.parse(row.additional_status);
-            let addStatus="";
-            // for (let key of Object.keys(parsedAddStatus)) {
-            //     if (key == "Master") {
-            //         y.push((parsedAddStatus[key]).cpu_idle);
-            //         infoMaster.push((parsedAddStatus[key]).cpu_idle);
-            //     }
-            //     if (key == "Aggregator_1"){ 
-            //         y1.push((parsedAddStatus[key]).cpu_idle);
-            //         infoAgg.push((parsedAddStatus[key]).cpu_idle);
-            //     }
-            //     if (key == "Leaf_1") {
-            //         y2.push((parsedAddStatus[key]).cpu_idle);
-            //         infoLeaf1.push((parsedAddStatus[key]).cpu_idle);
-            //     }
-            //     if (key == "Leaf_2"){ 
-            //         y3.push((parsedAddStatus[key]).cpu_idle);
-            //         infoLeaf2.push((parsedAddStatus[key]).cpu_idle);
-            //     }
-            // }
+
             list.forEach((_node,index) => {
                 eval("y"+index+".push((parsedAddStatus[_node]).cpu_idle)");
                 eval("info"+index+".push((parsedAddStatus[_node]).cpu_idle)");

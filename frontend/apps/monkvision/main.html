@@ -3,17 +3,6 @@
 -->
 <style>
 
-/*
-  ************ CHANGE HISTORY STARTS: By Ritika ********
- ---- Feature : to add dropdown to show node specific data ----
-- changed leftheader position frm absoulte to fixed
-- added textbox for NLP 
-- added scrollbar to entire page
-- code for adding dropdown
-*************** CHANGE HISTORY ENDS: By Ritika *********
-*/
-
-
 	/* Most of these are overridden or coming from theme.json */
 	body {
 		margin: 0;
@@ -37,7 +26,6 @@
 		z-index: -1;
 	}
 
-	/*Ritika code changed : position from absolute to fixed, and width from 50vw to 4.7vw*/
 	div#leftheader {
 		position: fixed;
 		left: 0%;
@@ -61,7 +49,7 @@
 		text-align: center;
 		position: relative;
 	}
-	/*Ritika code start : to add textbox for NLP*/
+
 	#textNLP {
 		width: 90vw;
 		height: 30px;
@@ -70,7 +58,7 @@
 		border: 1px solid gainsboro;
 		font-style: italic;
 	}
-	/*Ritika code end : to add textbox for NLP*/
+
 
 	#heading-textNLP {
 		margin: 5px;
@@ -118,11 +106,10 @@
 		filter: brightness(70%);
 		transition: all 1s ease;
 	}
-	/*Ritika code start : to add scrollbar to entire page*/
+
 	html{
     	  overflow: scroll;
 	}
-	/*Ritika code end : to add scrollbar to entire page*/
 
 	</style>
 	
@@ -147,6 +134,7 @@
 			
 		<title>{{pageTitle}}</title>
 		{{{css}}}
+
 	</head>
 	
 	<body>
@@ -160,16 +148,22 @@
 			<img id="textlogo" src="{{{htmlData.textlogo}}}">
 			<span id="title">{{title}}</span>	
 
-			<!-- ritika code start: added for dropdown -->
-			<label id="clusterLabel">Cluster:</label>
-			<select id="nodeDropdown" onchange=" monkshu_env.components['chart-box'].getSelectedNode(GetSelectedNodeValue(this))" >
+			<label id="clusterLabel">Cluster Nodes:</label>
+			<select selectedNode="{{url.nodeID}}" id="nodeDropdown" onchange="router.loadPage('./main.html?dash=./dashboards/dashboard_{{title}}.page&title={{title}}&refresh={{refresh}}&name={{name}}&nodeID='+this.options[this.selectedIndex].text);">
+			<option>Select Node</option>
 			</select>
-			<script type="text/javascript">
-				function GetSelectedNodeValue(nodeDropdown) {
-					var selectedNode = nodeDropdown.value;
-					return selectedNode;}
+			<script>
+				if("{{title}}"=="Summary Charts"){
+					let dropdown = document.querySelector("select#nodeDropdown"); 
+					dropdown.style.visibility = 'hidden';
+					let clusterLabel = document.querySelector("label#clusterLabel"); 
+					clusterLabel.style.visibility = 'hidden';
+				}
 			</script>
-			<!-- ritika code end: added for dropdown -->
+			<script type="module">
+				import {dropdown} from "./js/dropdown.mjs";
+				dropdown.populateDropdown("{{title}}");
+			</script>
 
 			<input id="datetimepickerfrom" type="datetime-local" value="{{{dateTimeWeekAgo}}}" onchange="main.timeRangeUpdated(true)">
 			<input id="datetimepickerto" type="datetime-local" value="{{{dateTimeNow}}}" onchange="main.timeRangeUpdated(true)">
@@ -182,8 +176,6 @@
 	
 		<div id="maincontent">
 			<div id ="divNLP"> 
-				<p id="heading-textNLP">Search node in this cluster - Use node ID or node hostname</p>
-				<input id="textNLP" type="text" placeholder=" Search for node ">
 				<p id="heading-textNLP">Graphs and Visualizations</p>
 			</div>
 			<page-generator file="{{{dash}}}"></page-generator>

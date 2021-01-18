@@ -5,10 +5,10 @@
 // const FRONTEND = "http://monboss-demo.memsqlclient.com:8080";
 // const BACKEND = "http://monboss-demo.memsqlclient.com:9090";
 
-//ritika added starts
+
 const FRONTEND = "http://localhost:8888";
 const BACKEND = "http://localhost:9090";
-//ritika added starts
+
 const APP_NAME = "monkvision";
 const APP_PATH = `${FRONTEND}/apps/${APP_NAME}`;
 const API_PATH = `${BACKEND}/apps/${APP_NAME}`;

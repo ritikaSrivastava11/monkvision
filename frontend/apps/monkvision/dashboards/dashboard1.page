@@ -56,7 +56,7 @@ SCHEMA
         "html": "chart-box",
         "id": "httpBar",
         "title": "{{i18n.clusterCpuUsage}}",
-        "api": "loggraphCpuUsage",
+        "api": "loggraphGeneric",
         "type": "linegraph",
         "maxticks": 3,
         "ysteps": "[1],[1]",
@@ -70,7 +70,7 @@ SCHEMA
         "labelColor": "rgba(72,72,72,0.98)",
         "gridColor": "rgba(120,120,120,0.20)",
         "styleBody": "div#content{overflow-y: hidden}",
-        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_cpu_stat_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}"
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_cpu_stat_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}&property=cpu_idle&nodeList_logID=shell_mon__bin_bash_c__home_monboss_monboss_scripts_nodes_list_generator_dashboard_sh__primary_"
     },
     "table": {
         "html":"chart-box", 
@@ -85,7 +85,7 @@ SCHEMA
         "html": "chart-box",
         "id": "httpBar",
         "title": "{{i18n.clusterDiskUtil}}",
-        "api": "loggraphDiskUtil",
+        "api": "loggraphGeneric",
         "type": "linegraph",
         "maxticks": 3,
         "ysteps": "[1],[1]",
@@ -99,7 +99,7 @@ SCHEMA
         "labelColor": "rgba(72,72,72,0.98)",
         "gridColor": "rgba(120,120,120,0.20)",
         "styleBody": "div#content{overflow-y: hidden}",
-        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_disk_util_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}"
+        "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_disk_util_dashboard_sh__primary_&statusAsBoolean=false&statusFalseValue=0.1&statusTrueValue=1&nullValue={{i18n.none}}&property=total_space_percentage&nodeList_logID=shell_mon__bin_bash_c__home_monboss_monboss_scripts_nodes_list_generator_dashboard_sh__primary_"
     },
     "disk_usage1": {
         "html": "chart-box",

@@ -26,9 +26,7 @@ exports.doService = async jsonReq => {
         return CONSTANTS.FALSE_RESULT;
     }
 
-    //Ritika code starts : for fetching node list to show in dropdown
-    const logid_nodelist="shell_mon__bin_bash_c__home_monboss_monboss_scripts_nodes_list_generator_dashboard_sh__primary_";
-    const rowsNodeList = await db.getLogs(logid_nodelist, utils.getTimeRangeForSQLite(JSON.parse(jsonReq.timeRange)));
+    const rowsNodeList = await db.getLogs(jsonReq.nodeList_logID, utils.getTimeRangeForSQLite(JSON.parse(jsonReq.timeRange)));
     let list=[];
     if (!rowsNodeList) {
         LOG.error("DB read issue for fetching node list");
@@ -41,7 +39,6 @@ exports.doService = async jsonReq => {
         }
         break;
     }
-    //Ritika code ends : for fetching node list to show in dropdown
 
     const rows = await db.getLogs(jsonReq.id, utils.getTimeRangeForSQLite(JSON.parse(jsonReq.timeRange)));
     if (!rows) {

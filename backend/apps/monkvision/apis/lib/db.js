@@ -30,13 +30,6 @@ exports.getAllLogs = async (range, callback) => {
     if (callback) callback(rows?null:"DB read error", rows?rows:null);
     else return rows;
 }
-//Ritika added : to get data from monboss.log , for temporary use   
-exports.getAlerts_System = async (logid, range, callback) => {
-    const query = "select timestamp, status, additional_status, system from logs where timestamp >= ? and timestamp <= ? and logid = ?";
-    const rows = await exports.getQuery(query, [range.from, range.to,logid]);
-    if (callback) callback(rows?null:"DB read error", rows?rows:null);
-    else return rows;
-}
 
 /**
  * Read given log entries from the DB

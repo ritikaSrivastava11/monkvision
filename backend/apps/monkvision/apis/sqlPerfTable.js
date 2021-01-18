@@ -27,34 +27,48 @@ exports.doService = async jsonReq => {
     if (!rows) {LOG.error("DB read issue"); return CONSTANTS.FALSE_RESULT;}
     const x = [], y = [], y1=[],y2=[],y3=[],y4=[],y5=[],y6=[],info = [],infoCPU=[],infoDISK=[],infoRAM=[], falseStatusValue = jsonReq.statusFalseValue?jsonReq.statusFalseValue:0.1,
         trueStatusValue = jsonReq.statusTrueValue?jsonReq.statusTrueValue:1;
+        //ritika
+        let count=0;
     for (const row of rows) {
+        //ritika
+        count++;
         x.push(utils.fromSQLiteToUTCOrLocalTime(row.timestamp, jsonReq.notUTC));
-        if (jsonReq.statusAsBoolean && jsonReq.statusAsBoolean.toLowerCase() == "true") 
-            y.push(row.status==1?true:false); else y.push(row.status==1?trueStatusValue:falseStatusValue);
-            if(Array.isArray(row.additional_status)){
-                for( let index=0;index<row.additional_status.length;index++){
-                    let Query_database=JSON.parse(row.additional_status[index]).Query_database;
-                    let Query_last_run_time=JSON.parse(row.additional_status[index]).Query_last_run_time;
-                    let Query_average_cpu_time=JSON.parse(row.additional_status[index]).Query_average_cpu_time;
-                    let Query_average_network_time=JSON.parse(row.additional_status[index]).Query_average_network_time;
-                    let Query_average_elapsed_time=JSON.parse(row.additional_status[index]).Query_average_elapsed_time;
-                    let Query_text=JSON.parse(row.additional_status[index]).Query_text;
+            try{
+                if(Array.isArray(JSON.parse(row.additional_status))){
+                    LOG.info(` count is ${count}`);
+                        LOG.info(`add status string ${JSON.stringify(row.additional_status)}`);
+                        LOG.info(`add status parse ${JSON.parse(row.additional_status)}`);
     
-                    y1.push(Query_database);
-                    y2.push(Query_last_run_time);
-                    y3.push(Query_average_cpu_time);
-                    y4.push(Query_average_network_time);
-                    y5.push(Query_average_elapsed_time);
-                    y6.push(Query_text);
+                    // LOG.info(`Query_last_run_time is ${(JSON.parse(row.additional_status)[51]).Query_last_run_time}`);
     
+                     for( let index=0;index<JSON.parse(row.additional_status).length;index++){
+                        let Query_database=(JSON.parse(row.additional_status)[index]).Query_database;
+                        let Query_last_run_time=(JSON.parse(row.additional_status)[index]).Query_last_run_time;
+                        let Query_average_cpu_time=(JSON.parse(row.additional_status)[index]).Query_average_cpu_time;
+                        let Query_average_network_time=(JSON.parse(row.additional_status)[index]).Query_average_network_time;
+                        let Query_average_elapsed_time=(JSON.parse(row.additional_status)[index]).Query_average_elapsed_time;
+                        let Query_text=(JSON.parse(row.additional_status)[index]).Query_text;
     
-                    info.push(!row.additional_status[index] || row.additional_status[index]=="" ? 
-                    (jsonReq.nullValue?jsonReq.nullValue:row.additional_status[index]) : row.additional_status[index]);
+                        y1.push(Query_database);
+                        y2.push(Query_last_run_time);
+                        y3.push(Query_average_cpu_time);
+                        y4.push(Query_average_network_time);
+                        y5.push(Query_average_elapsed_time);
+                        y6.push(Query_text);
+        
+                        // info.push(!JSON.parse(row.additional_status)[index] || JSON.parse(row.additional_status)[index]=="" ? 
+                        // (jsonReq.nullValue?jsonReq.nullValue:JSON.parse(row.additional_status)[index]) : JSON.parse(row.additional_status)[index]);
+                        // info.push(!row.additional_status[index] || row.additional_status[index]=="" ? 
+                        // (jsonReq.nullValue?jsonReq.nullValue:row.additional_status[index]) : row.additional_status[index]);
+                    }
                 }
+            }catch(e){
+                LOG.error(`Error incountered and catched: ${e}`);
             }
-    }
 
-    const result = {result: true, type: "table", contents: {length:x.length,x,ys:[y],infos:[info]}}; 
+    }
+    // LOG.info(`y1 is ${y1}`);
+    const result = {result: true, type: "table", contents: {length:x.length,x,ys:[y1,y2,y3,y4,y5,y6],infos:[info]}}; 
     if (jsonReq.title) result.contents.title = jsonReq.title; return result;
 }
 

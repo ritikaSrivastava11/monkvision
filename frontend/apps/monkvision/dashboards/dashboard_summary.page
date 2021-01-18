@@ -2,7 +2,7 @@ SCHEMA
 ======
 {
     "alerts": {"html":"chart-box", "id":"alerts", "title":"{{i18n.CriticalAlerts}}", "api":"alerts", "type":"text",
-        "styleBody":"div#container{height: calc(100vh - 105px) !important;} div#content > div#textcontent > span#text > p:hover {background-color: rgb(235, 250, 245);}"},
+        "styleBody":"div#container{height: calc(100vh - 105px) !important;} div#content{height: calc(137% - 10px) !important;} div#content > div#textcontent > span#text > p:hover {background-color: rgb(235, 250, 245);}"},
 
     "clientBanner1": {"html":"chart-box", "id":"httpBanner", "title": "Issue Summary", 
         "api":"statusbanner_activeNodes", "type":"metrictext", 
@@ -11,6 +11,16 @@ SCHEMA
     "clientBanner2": {"html":"chart-box", "id":"httpBanner", "title": "Issue Summary", 
         "api":"statusbanner_activeNodes", "type":"metrictext", 
         "params": "id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_memsql_portcheck_dashboard_sh__primary_&percent_total_nodes_Colors=#ffffff,#45d19e&elseColors=#ffffff,#ff3f3fcc&elseIcon=./img/server_icon.svg&percent_total_nodes_Explanation=All nodes Online&elseExplanation=One or more nodes down&elseTitle=Total Nodes Online"},
+    
+    "table": {
+        "html":"chart-box", 
+        "id":"password", 
+        "api":"sqlPerfTable", 
+        "type":"table", 
+        "labels":"x:{{i18n.time}},ys0:{{i18n.status}},ys1:CPU Usage,ys2:Disk Usage,ys3:RAM Usage", 
+        "params":"id=shell_mon__bin_bash_c__home_monboss_monboss_scripts_sql_query_performance_checker_dashboard_sh__ktyitcstg_&statusAsBoolean=true&nullValue={{i18n.none}}&title={{i18n.table}}", 
+        "styleBody":"div#content{max-height: calc(33vh - 64px) !important;} thead, th{box-shadow: 0 2px 2px -1px rgb(69, 209, 158, 0.4); background-color: #45d19e; color: rgb(250,250,250);} tr:nth-child(even) {background: rgb(235, 250, 245)}"
+    },
 
     "clientLine1": {"html": "chart-box","id": "httpBar","title": "{{i18n.clusterCpuUsage}}","api": "lineGraphSummary","type": "linegraph",
         "maxticks": 3,"ysteps": "[1],[1]","ylabels": "[],[],[],[]","ymaxs": "[100],[100],[100],[100]",
@@ -43,12 +53,16 @@ LAYOUT
 -----------------------------------------------
 |   alerts    | clientBanner1 | clientBanner2 |
 |---------------------------------------------|
+|   alerts    |           table               |
+|---------------------------------------------|
 |   alerts    |           clientLine1         |
 |---------------------------------------------|
 |   alerts    |           clientLine2         |
+|---------------------------------------------|
+|   alerts    |           clientLine3         |
 -----------------------------------------------
 =================
-Row Heights = 33.3%,33.3%,33.3%
+Row Heights = 33.3%,33.3%,33.3%,33.33%,33.33%
 Col Widths = 30%,35%,35%
 =================
 

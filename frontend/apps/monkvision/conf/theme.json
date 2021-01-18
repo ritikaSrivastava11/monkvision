@@ -83,13 +83,10 @@
     "main_i18n": {
         "en": {
             "title": "Monkvision Dashboards",
-            "name_dash1": "Primary",
-            "title_dash1": "Overview of the Primary cluster",
-            "name_dash2": "Summary",
-            "title_dash2": "Summary Charts",
-
-            "name_dash3": "ktymsqlitcrw",
-            "title_dash3": "Monitoring cluster production cluster Primary",
+            "name_dash1": "Summary",
+            "title_dash1": "Summary Charts",
+            "name_dash2": "Primary",
+            "title_dash2": "Primary",
 
             "Issue": "Issues",
             "Cancel": "Cancel",

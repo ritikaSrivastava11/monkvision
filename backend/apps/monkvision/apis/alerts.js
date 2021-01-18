@@ -9,10 +9,7 @@ const utils = require(`${APP_CONSTANTS.LIB_DIR}/utils.js`);
 
 exports.doService = async jsonReq => {
 	if (!validateRequest(jsonReq)) {LOG.error("Validation failure."); return CONSTANTS.FALSE_RESULT;}
-    const logid="monboss.log";
-    //Ritika commented : to change getAlerts to getAlerts_System ,for temporary use
-	// const rows = await db.getAlerts(utils.getTimeRangeForSQLite(JSON.parse(jsonReq.timeRange)));
-    const rows = await db.getAlerts_System(logid,utils.getTimeRangeForSQLite(JSON.parse(jsonReq.timeRange)));
+	const rows = await db.getAlerts(utils.getTimeRangeForSQLite(JSON.parse(jsonReq.timeRange)));
     if (!rows) {LOG.error(`DB read issue: ${err}`); return CONSTANTS.FALSE_RESULT;}
     
     let contents = [];
